@@ -286,64 +286,6 @@ public class Cafes   {
 		 */
 		public void cafesPorProveedor(int provid) throws AccesoDatosException {
 		
-			/* Sentencia sql */
-			PreparedStatement stmt = null;
-			/* Conjunto de Resultados a obtener de la sentencia sql */
-			ResultSet rs = null;
-			try {
-				con = new Utilidades().getConnection();
-				// Creación de la sentencia
-				stmt = con.prepareStatement(SEARCH_CAFES_PROVEEDOR);
-				stmt.setInt(1, provid);
-				// Ejecución de la consulta y obtención de resultados en un
-				// ResultSet
-				rs = stmt.executeQuery();
-
-				// Recuperación de los datos del ResultSet
-				while (rs.next()) {
-					String coffeeName = rs.getString("CAF_NOMBRE");
-					int supplierID = rs.getInt("PROV_ID");
-					float PRECIO = rs.getFloat("PRECIO");
-					int VENTAS = rs.getInt("VENTAS");
-					int total = rs.getInt("TOTAL");
-					String provName = rs.getString("PROV_NOMBRE");
-					String calle = rs.getString("CALLE");
-					String ciudad = rs.getString("CIUDAD");
-					String pais = rs.getString("PAIS");
-					int cp = rs.getInt("CP");
-					System.out.println(coffeeName + ", " + supplierID + ", "
-							+ PRECIO + ", " + VENTAS + ", " + total
-							+ ",Y el proveedor es:" + provName + "," + calle + ","
-							+ ciudad + "," + pais + "," + cp);
-				}
-
-			} catch (IOException e) {
-				// Error al leer propiedades
-				// En una aplicación real, escribo en el log y delego
-				System.err.println(e.getMessage());
-				throw new AccesoDatosException(
-						"Ocurrió un error al acceder a los datos");
-			} catch (SQLException sqle) {
-				// En una aplicación real, escribo en el log y delego
-				Utilidades.printSQLException(sqle);
-				throw new AccesoDatosException(
-						"Ocurrió un error al acceder a los datos");
-			} finally {
-				try {
-					// Liberamos todos los recursos pase lo que pase
-					if (rs != null) {
-						rs.close();
-					}
-					if (stmt != null) {
-						stmt.close();
-					}
-					
-				} catch (SQLException sqle) {
-					// En una aplicación real, escribo en el log, no delego porque
-					// es error al liberar recursos
-					Utilidades.printSQLException(sqle);
-				}
-			}
 
 		}
 }
